@@ -102,13 +102,8 @@ class DocstringArgs(object):
 
 # Convenience: Just import cmdline and it'll DTRT in simple cases.
 import sys
+docstring = ""
 if "__main__" in sys.modules:
-	# Note that we don't "import __main__" here, for several reasons.
-	# If there isn't anything there, we just quietly skip creating cmdline.
-	# Likewise if it has no docstring; if you want to use the shorthand,
-	# make sure there is a useful docstring (at least a one-liner).
-	docstring = sys.modules["__main__"].__doc__
-	if docstring:
-		cmdline = DocstringArgs(desc=docstring.split("\n", 1)[0])
-	del docstring # Don't pollute dir()
-del sys # Don't pollute dir(), again
+	docstring = sys.modules["__main__"].__doc__ or ""
+cmdline = DocstringArgs(desc=docstring.split("\n", 1)[0])
+del sys, docstring # Don't pollute dir()

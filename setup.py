@@ -1,7 +1,7 @@
 from setuptools import setup
 setup(
 	name="docstringargs",
-	version="0.2",
+	version="0.2.1",
 	description="Argparse builder using function docstrings",
 	long_description=open("README").read(),
 	url="https://github.com/Rosuav/docstringargs",
