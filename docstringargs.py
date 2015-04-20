@@ -71,8 +71,9 @@ class DocstringArgs(object):
 			if len(arg) < 2: continue # Blank lines etc
 			name = arg[0].strip()
 			opts = {}
-			if name in defs:
-				opts["default"] = defs.pop(name)
+			clean_name = name.replace("-","")
+			if clean_name in defs:
+				opts["default"] = defs.pop(clean_name)
 			elif "=" in name:
 				name, opts["default"] = name.split("=", 1)
 				# "arg=True" means store_true rather than an
