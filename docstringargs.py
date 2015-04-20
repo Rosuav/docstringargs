@@ -70,7 +70,7 @@ class DocstringArgs(object):
 			if len(arg) < 2: continue # Blank lines etc
 			name = arg[0].strip()
 			opts = {}
-			clean_name = name.replace("-","")
+			clean_name = name.strip("+-")
 			if clean_name in defs:
 				opts["default"] = defs.pop(clean_name)
 			elif "=" in name:
@@ -83,6 +83,9 @@ class DocstringArgs(object):
 				if opts["default"] is False:
 					del opts["default"]
 					opts["action"]="store_true"
+			if name[-1] in ('+', '*'):
+				opts["nargs"] = name[-1]
+				name = name[:-1]
 			p.add_argument(name, help=arg[1].strip(), **opts)
 		# Squirrel away the function itself for main() to use
 		self.handlers[f.__name__] = f
