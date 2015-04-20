@@ -97,7 +97,7 @@ class DocstringArgs(object):
 		arguments = self.parse_args()
 		return self.handlers[arguments.pop("command")](**arguments)
 
-# Convenience: Just import this and it'll DTRT in simple cases.
+# Convenience: Just import cmdline and it'll DTRT in simple cases.
 if "__main__" in sys.modules:
 	# Note that we don't "import __main__" here, for several reasons.
 	# If there isn't anything there, we just quietly skip creating cmdline.
