@@ -1,4 +1,3 @@
-import sys
 import argparse
 
 class DocstringArgs(object):
@@ -85,6 +84,7 @@ class DocstringArgs(object):
 					del opts["default"]
 					opts["action"]="store_true"
 			p.add_argument(name, help=arg[1].strip(), **opts)
+		# Squirrel away the function itself for main() to use
 		self.handlers[f.__name__] = f
 		return f
 
@@ -98,6 +98,7 @@ class DocstringArgs(object):
 		return self.handlers[arguments.pop("command")](**arguments)
 
 # Convenience: Just import cmdline and it'll DTRT in simple cases.
+import sys
 if "__main__" in sys.modules:
 	# Note that we don't "import __main__" here, for several reasons.
 	# If there isn't anything there, we just quietly skip creating cmdline.
@@ -107,3 +108,4 @@ if "__main__" in sys.modules:
 	if docstring:
 		cmdline = DocstringArgs(desc=docstring.split("\n", 1)[0])
 	del docstring # Don't pollute dir()
+del sys # Don't pollute dir(), again
