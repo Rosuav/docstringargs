@@ -106,3 +106,4 @@ if "__main__" in sys.modules:
 	docstring = sys.modules["__main__"].__doc__
 	if docstring:
 		cmdline = DocstringArgs(desc=docstring.split("\n", 1)[0])
+	del docstring # Don't pollute dir()
